@@ -1014,3 +1014,13 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+vim.cmd([[
+  set tabstop=4
+  set softtabstop=0
+  set noexpandtab
+  set shiftwidth=4
+  syntax on
+
+  let g:user42 = 'kchiang'
+  let g:mail42 = 'kchiang@student.42kl.edu.my'
+  ]])
