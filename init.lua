@@ -100,6 +100,7 @@ vim.g.have_nerd_font = false
 
 -- Make line numbers default
 vim.o.number = true
+vim.o.relativenumber = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
 -- vim.o.relativenumber = true
@@ -118,8 +119,17 @@ vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
 
--- Enable break indent
-vim.o.breakindent = true
+-- Dsiabled break indent
+vim.o.breakindent = false
+
+-- Enabled smart indent
+vim.o.smartindent = true
+
+-- Set tab to tab character with 4 character spaces
+vim.o.tabstop = 4
+vim.o.softtabstop = 0
+vim.o.shiftwidth = 4
+vim.o.expandtab = false
 
 -- Save undo history
 vim.o.undofile = true
@@ -1155,13 +1165,9 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-vim.cmd [[
-  set tabstop=4
-  set softtabstop=0
-  set noexpandtab
-  set shiftwidth=4
-  syntax on
 
+-- USER and MAIL for 42 Header
+vim.cmd [[
   let g:user42 = 'kchiang'
   let g:mail42 = 'kchiang@student.42kl.edu.my'
   ]]
