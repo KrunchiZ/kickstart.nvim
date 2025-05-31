@@ -119,17 +119,15 @@ vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
 
--- Dsiabled break indent
-vim.o.breakindent = false
-
--- Enabled smart indent
-vim.o.smartindent = true
-
--- Set tab to tab character with 4 character spaces
-vim.o.tabstop = 4
-vim.o.softtabstop = 0
-vim.o.shiftwidth = 4
-vim.o.expandtab = false
+-- One tab (4 charactersi indentation)
+vim.cmd [[
+set smartindent
+set breakindent
+set tabstop=4
+set softtabstop=0
+set shiftwidth=4
+set noexpandtab
+]]
 
 -- Save undo history
 vim.o.undofile = true
@@ -1168,6 +1166,6 @@ require('lazy').setup({
 
 -- USER and MAIL for 42 Header
 vim.cmd [[
-  let g:user42 = 'kchiang'
-  let g:mail42 = 'kchiang@student.42kl.edu.my'
-  ]]
+	let g:user42 = 'kchiang'
+	let g:mail42 = 'kchiang@student.42kl.edu.my'
+	]]
