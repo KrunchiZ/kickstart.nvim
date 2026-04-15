@@ -1221,4 +1221,6 @@ require('lazy').setup({
 vim.cmd [[
 	let g:user42 = 'kchiang'
 	let g:mail42 = 'kchiang@student.42kl.edu.my'
+	set colorcolumn=81
+	autocmd BufNewFile *.c,*.h Stdheader
 	]]
