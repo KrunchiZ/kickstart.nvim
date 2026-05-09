@@ -1221,4 +1221,76 @@ require('lazy').setup({
 vim.cmd [[
 	let g:user42 = 'kchiang'
 	let g:mail42 = 'kchiang@student.42kl.edu.my'
+	autocmd BufNewFile *.c,*.h,*.cpp,*.hpp Stdheader
+	set colorcolumn=81
+
+	" Insert a C++ Rule-of-Three class skeleton.
+	" Usage (normal mode, in a .h/.hpp file):  <f2>
+	" The cursor is left on the 'ClassName' of the first line so you can
+	function! DeclareCppClass()
+		" Prompt for the class name
+		let l:name = input('Class name: ')
+		if empty(l:name)
+			echo "\nAborted."
+			return
+		endif
+
+		" Build the lines.  \t is a literal tab character inside double-quotes.
+		let l:lines = [
+			\ 'class ' . l:name,
+			\ '{',
+			\ 'public:',
+			\ "\t" . l:name . '();',
+			\ "\t" . l:name . '(const ' . l:name . '& other);',
+			\ "\t~" . l:name . '();',
+			\ '',
+			\ "\t" . l:name . '&' . "\t" . 'operator=(const ' . l:name . '& rhs);',
+			\ '',
+			\ 'private:',
+			\ '};',
+			\ ]
+
+		" Append below the current line, then move the cursor to the first line
+		let l:row = line('.')
+		call append(l:row, l:lines)
+		call cursor(l:row + 1, 1)
+	endfunction
+
+	" Insert a C++ OCF class base implementation.
+	" Usage (normal mode, in a .cpp file):  <f2>
+	" The cursor is left on the 'ClassName' of the first line so you can
+	function! DraftCppClass()
+		" Prompt for the class name
+		let l:name = input('Class name: ')
+		if empty(l:name)
+			echo "\nAborted."
+			return
+		endif
+
+		" Build the lines.  \t is a literal tab character inside double-quotes.
+		let l:lines = [
+			\ l:name . '::' . l:name . '()',
+			\ '{',
+			\ '}',
+			\ '',
+			\ l:name . '::' . l:name . '(const ' . l:name . '& other) {*this = other;}',
+			\ '',
+			\ l:name . '::~' . l:name . '()',
+			\ '{',
+			\ '}',
+			\ '',
+			\ l:name . '&' . "\t" . l:name . '::operator=(const ' . l:name . '& rhs)',
+			\ '{',
+			\ "\treturn (*this);",
+			\ '}',
+			\ ]
+
+		" Append below the current line, then move the cursor to the first line
+		let l:row = line('.')
+		call append(l:row, l:lines)
+		call cursor(l:row + 1, 1)
+	endfunction
+
+	autocmd BufNewFile,BufRead *.h,*.hpp nnoremap <buffer> <F2> :call DeclareCppClass()<CR>
+	autocmd BufNewFile,BufRead *.cpp nnoremap <buffer> <F2> :call DraftCppClass()<CR>
 	]]
